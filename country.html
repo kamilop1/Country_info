@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country</title>
+    <style>
+        #infoBoxes{
+            display: grid;
+            width: 400px;
+        }
+        #infoBoxes div{
+            height:3em;
+            border:3px solid black;
+            margin-top:-3px
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="country_name" style="font-size: 15px;"></h1>
+    <div id="infoBoxes">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        const country_ccn = window.location.search.split("?")[1]
+        window.addEventListener("load", evt => {
+            fetch('https://restcountries.com/v3.1/alpha/' + country_ccn)
+                .then(res => res.json())
+                .then(out => displayInfo(out))
+                .catch(err => { alert("load error: " + err) })
+        })
+        function displayInfo(out){
+            let rows = document.querySelectorAll("#infoBoxes div");
+            const country = out[0]
+            console.log(country.capital)
+            rows[0].innerHTML="Common name: "+country.name.common;
+            rows[1].innerHTML="Official name: "+country.name.official
+            let capitalCity = "";
+            country.capital == undefined ? capitalCity="None" : capitalCity=country.capital[0];
+            console.log(capitalCity)
+            rows[2].innerHTML="Capital city: "+capitalCity
+            rows[3].innerHTML="Region: "+country.region
+            let currencies = "";
+            if(country.currencies == undefined){
+                currencies = "None"
+            } else {
+                Object.keys(country.currencies).forEach(el => currencies+=el+" ")
+            }
+            rows[4].innerHTML="Currencies: "+currencies
+        }
+    </script>
+</body>
+
+</html>

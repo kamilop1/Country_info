@@ -11,6 +11,9 @@ body{
 #searchBox{
     margin: 20px;
     padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #search{
     width:100%;
@@ -26,11 +29,19 @@ body{
 }
 .searchResult{
     display: flex;
-    height:5em;
+    height:4em;
     text-align: center;
     font-size: 1.5em;
     border:1px solid #333;
     margin:10px;
     align-items: center;
     justify-content: center;
+}
+#noResults{
+    display: none;
+    color:red;
+    border:2px solid red;
+    border-radius: 10%;
+    width:fit-content;
+    margin:10px;
 }
